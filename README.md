@@ -1,5 +1,9 @@
 # AIWA (Address Interacted With Address)
 
+![Alt](https://repobeats.axiom.co/api/embed/453912f5a3e66b04d3c7273124304c05f242fc4b.svg "Repobeats analytics image")
+
+## Overview
+
 AIWA is a script that fetches all transactions sent to a specific Ethereum address from both the Ethereum and Base mainnet. The results are saved to a CSV file.
 
 ## Setup
