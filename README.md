@@ -44,7 +44,7 @@ Run the script to fetch transactions for a specific address:
 python aiwa.py <target_address>
 ```
 
-Replace <target_address> with the Ethereum address you want to query, e.g., `0xebe9f0540df89509e5fbd4693c85ad66f73affc9`.
+Replace <target_address> with the address you want to query, e.g., `0xebe9f0540df89509e5fbd4693c85ad66f73affc9`.
 
 The transactions will be saved to `transactions.csv`.
 
