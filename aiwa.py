@@ -23,6 +23,8 @@ def get_transactions(address, api_key, base_url, start_block=0, end_block=999999
     data = response.json()
     if data['status'] == '1':
         return data['result']
+    elif data['message'] == 'No transactions found':
+        return []
     else:
         print(f"Error: {data['message']}")
         return []
