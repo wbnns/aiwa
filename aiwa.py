@@ -74,7 +74,7 @@ def main(target_address):
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
-        print("Usage: python AIWA.py <target_address>")
+        print("Usage: python aiwa.py <target_address>")
         sys.exit(1)
     
     target_address = sys.argv[1]
