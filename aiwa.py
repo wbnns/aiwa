@@ -17,7 +17,7 @@ CSV_FILENAME = 'transactions.csv'
 CALLS_PER_SECOND = 5
 DELAY = 1 / CALLS_PER_SECOND
 
-def get_transactions(address, api_key, base_url, start_block=0, end_block=99999999, page=1, offset=10000):
+def get_transactions(address, api_key, base_url, start_block=0, end_block=99999999, page=1, offset=1000):
     url = f'{base_url}?module=account&action=txlist&address={address}&startblock={start_block}&endblock={end_block}&page={page}&offset={offset}&sort=asc&apikey={api_key}'
     response = requests.get(url)
     data = response.json()
@@ -30,8 +30,9 @@ def get_transactions(address, api_key, base_url, start_block=0, end_block=999999
 def get_all_transactions(address, api_key, base_url):
     all_transactions = []
     page = 1
+    offset = 1000  # Use a smaller offset to avoid hitting the limit
     while True:
-        transactions = get_transactions(address, api_key, base_url, page=page)
+        transactions = get_transactions(address, api_key, base_url, page=page, offset=offset)
         if not transactions:
             break
         all_transactions.extend(transactions)
@@ -52,7 +53,9 @@ def save_transactions_to_csv(transactions, filename):
         writer = csv.DictWriter(csvfile, fieldnames=headers)
         writer.writeheader()
         for tx in transactions:
-            writer.writerow(tx)
+            # Filter out fields that are not in the headers
+            filtered_tx = {key: tx[key] for key in headers if key in tx}
+            writer.writerow(filtered_tx)
 
 def main(target_address):
     ethereum_transactions = get_all_transactions(target_address, ETHERSCAN_API_KEY, ETHEREUM_BASE_URL)
@@ -74,4 +77,3 @@ if __name__ == '__main__':
     
     target_address = sys.argv[1]
     main(target_address)
-
